@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1E8-DS-c0T">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Game Scene Controller Controller-->
+        <scene sceneID="tC6-jm-3ol">
+            <objects>
+                <viewController id="1E8-DS-c0T" customClass="GameSceneControllerController" customModule="Arcanoid" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WUt-wE-aD7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <skView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dJd-eZ-DFs">
+                                <rect key="frame" x="0.0" y="94" width="320" height="400"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dJd-eZ-DFs" secondAttribute="height" multiplier="4:5" id="UIJ-DM-BVJ"/>
+                                </constraints>
+                            </skView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dJd-eZ-DFs" firstAttribute="width" secondItem="WUt-wE-aD7" secondAttribute="width" id="11M-je-hHU"/>
+                            <constraint firstItem="dJd-eZ-DFs" firstAttribute="centerX" secondItem="dWg-lb-rna" secondAttribute="centerX" id="SYs-JF-DWB"/>
+                            <constraint firstItem="dJd-eZ-DFs" firstAttribute="centerY" secondItem="dWg-lb-rna" secondAttribute="centerY" id="Wzj-Ea-rmD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dWg-lb-rna"/>
+                    </view>
+                    <connections>
+                        <outlet property="sceneView" destination="dJd-eZ-DFs" id="Opp-Wh-JkN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YEZ-p8-dxx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="24.375" y="132.04225352112675"/>
+        </scene>
+    </scenes>
+</document>
