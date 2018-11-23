@@ -24,6 +24,7 @@
  */ 
 
 import SpriteKit
+import GameplayKit
 
 let BallCategoryName = "ball"
 let FloorCategoryName = "floor"
@@ -60,10 +61,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private let positionY = ballSize / 2.0
     
+    lazy var gameState: GKStateMachine = GKStateMachine(states: [
+        WaitingForTap(scene: self),
+        Playing(scene: self),
+        GameOver(scene: self)]
+    )
+    
+    private var vector: CGVector?
+    
     // MARK: - Life Cycle
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        
+        gameState.enter(WaitingForTap.self)
+        
         setupBorder()
         setupBottom()
         setupPhysicsWorld()
@@ -83,12 +95,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let touchPoint = touches.first!.location(in: self)
-        let y = touchPoint.y - parentBallNode.position.y
-        let x = touchPoint.x - parentBallNode.position.x
-        let coef = 4.0 / sqrt(x * x + y * y)
-        let vector = CGVector(dx: x * coef, dy: y * coef)
         
+        switch gameState.currentState {
+        case is WaitingForTap:
+            let touchPoint = touches.first!.location(in: self)
+            let y = touchPoint.y - parentBallNode.position.y
+            let x = touchPoint.x - parentBallNode.position.x
+            let coef = 4.0 / sqrt(x * x + y * y)
+            vector = CGVector(dx: x * coef, dy: y * coef)
+            
+            gameState.enter(Playing.self)
+            
+        default:
+            break
+        }
+
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        gameState.update(deltaTime: currentTime)
+    }
+    
+    func spawnBalls() {
+        guard let vector = vector else { return }
         createBalls(count: 10, apply: vector)
     }
     
@@ -116,14 +145,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private func createBalls(count: Int, apply vector: CGVector) {
         
-        guard !gameInProcess else {
-            return
-        }
-        
-        let actionStartGame = SKAction.run {
-            self.gameInProcess = true
-        }
-        
         let createBallAction = SKAction.run {
             let ball = BallNode()
             self.addChild(ball)
@@ -140,8 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.parentBallNode.removeFromParent()
         }
         
-        var actions = [actionStartGame,
-                       SKAction.repeat(spawnSequenceAction, count: count - 1)]
+        var actions = [SKAction.repeat(spawnSequenceAction, count: count - 1)]
         
         if count > 1 {
             actions.append(createBallAction)
@@ -209,7 +229,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     addChild(parentBallNode)
                     parentBallNode.position = endBallNode.position
                     endBallNode.removeFromParent()
-                    gameInProcess = false
+                    gameState.enter(WaitingForTap.self)
                 }
             }
         case (BallCategory, BlockCategory):
