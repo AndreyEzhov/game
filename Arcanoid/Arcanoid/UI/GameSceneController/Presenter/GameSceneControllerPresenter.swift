@@ -15,7 +15,7 @@ protocol GameSceneControllerDisplayable: View {
 
 /// Интерфейс презентера
 protocol GameSceneControllerPresentable: Presenter {
-
+    var gameScenePresenter: GameScenePresenterProtocol { get }
 }
 
 /// Презентер для экрана «GameSceneController»
@@ -28,6 +28,8 @@ final class GameSceneControllerPresenter: GameSceneControllerPresentable {
     // MARK: - Properties
     
     weak var view: View?
+    
+    let gameScenePresenter: GameScenePresenterProtocol = GameScenePresenter()
     
     // MARK: - Construction
     

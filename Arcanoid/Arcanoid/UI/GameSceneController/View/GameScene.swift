@@ -69,6 +69,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var vector: CGVector?
     
+    weak var presenter: GameScenePresenterProtocol?
+    
     // MARK: - Life Cycle
     
     override func didMove(to view: SKView) {

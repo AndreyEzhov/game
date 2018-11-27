@@ -26,6 +26,9 @@ final class GameSceneControllerController: BaseViewController<GameSceneControlle
         let scene = GameScene(fileNamed:"GameScene")
         scene?.scaleMode = .aspectFit
         sceneView.presentScene(scene)
+        
+        scene?.presenter = presenter.gameScenePresenter
+        presenter.gameScenePresenter.gameScene = scene
     }
     
     // MARK: - GameSceneControllerDisplayable

@@ -14,6 +14,8 @@ class Assembly {
     
     static var shared = Assembly()
     
+    let remoteConfigStorage = RCValues()
+    
     // MARK: - Construction
     
     private init () {}
@@ -21,7 +23,6 @@ class Assembly {
     // MARK: - Functions
     
     func root() -> UIViewController {
-        return UINavigationController(rootViewController: createGameSceneControllerController())
+        return UINavigationController(rootViewController: createWaitingViewControllerController())
     }
-
 }

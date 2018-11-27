@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Arcanoid/UI/GameSceneController/View/GameScene.swift"
-            timestampString = "564681698.2512079"
+            timestampString = "565015667.311251"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
